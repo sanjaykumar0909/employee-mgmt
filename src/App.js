@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./styles.scss"
+import "./formStyle.scss"
 
 const FormComponent = () => {
   const [formData, modFormData] = useState({
@@ -54,28 +55,28 @@ const FormComponent = () => {
   };
   return (<>
     <form onSubmit={addEmp}>
-      <div>
-        <label>Employee name:</label>
-        <input type="text" name="employeeName" value={formData.employeeName} onChange={handleChange} />
+      <div className='form-group'>
+        <label className="label">Employee name:</label>
+        <input className="input" type="text" name="employeeName" value={formData.employeeName} onChange={handleChange} />
       </div>
-      <div>
-        <label>Employee id:</label>
-        <input type="text" name="employeeId" value={formData.employeeId} onChange={handleChange} />
+      <div className='form-group'>
+        <label className="label">Employee id:</label>
+        <input className="input" type="text" name="employeeId" value={formData.employeeId} onChange={handleChange} />
       </div>
-      <div>
-        <label>Department:</label>
+      <div className='form-group'>
+        <label className="label">Department:</label>
         <select name="department" value={formData.department} onChange={handleChange}>
           <option value="department1">Department 1</option>
           <option value="department2">Department 2</option>
           <option value="department3">Department 3</option>
         </select>
       </div>
-      <div>
-        <label>DoB:</label>
-        <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
+      <div className='form-group'>
+        <label className="label">DoB:</label>
+        <input className="input" type="date" name="dob" value={formData.dob} onChange={handleChange} />
       </div>
-      <div>
-        <label>Gender:</label>
+      <div className='form-group'>
+        <label className="label">Gender:</label>
         <label>
           <input type="radio" name="gender" value="male" checked={formData.gender === 'male'} onChange={handleChange} />
           Male
@@ -85,16 +86,17 @@ const FormComponent = () => {
           Female
         </label>
       </div>
-      <div>
+      <div className='form-group'>
         <label>Designation:</label>
-        <input type="text" name="designation" value={formData.designation} onChange={handleChange} />
+        <input className="input" type="text" name="designation" value={formData.designation} onChange={handleChange} />
       </div>
-      <div>
+      <div className='form-group'>
         <label>Salary:</label>
-        <input type="text" name="salary" value={formData.salary} onChange={handleChange} />
+        <input className="input" type="text" name="salary" value={formData.salary} onChange={handleChange} />
       </div>
-      <button type="submit">Add</button>
+      <button className="submit-button" type="submit">Add</button>
     </form>
+    <br />
     <div className="table">
       <table>
         <tr>
@@ -121,6 +123,7 @@ const FormComponent = () => {
     })}
       </table>
           </div>
+          <br />
           <button onClick={sendDataToBackend}>Submit</button>
     
     </>);
