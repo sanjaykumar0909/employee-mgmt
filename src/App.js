@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./styles.scss"
 import "./formStyle.scss"
-
+import TableWithPagination from './Table';
 const FormComponent = () => {
   const [formData, modFormData] = useState({
     employeeName: '',
@@ -22,32 +22,32 @@ const FormComponent = () => {
 
   const addEmp = async (e) => {
     e.preventDefault();
-    modTable(prev=> [...prev, formData])
+    let c1= formData.employeeId ==="" || formData.employeeName ==="" || formData.dob===""||formData.gender===""||formData.designation===""||formData.salary==="",
+    c2= formData.employeeName.length <8,
+    c3= Number(formData.salary) > 10000000
+    if (c1) alert("all form fields are mandatory")
+    else if (c2) alert("minimum 8 characters needed for employee name")
+    else if (c3) alert("salaryout of bounds")
+    else{
+  modTable(prev=> [...prev, formData])
     modFormData({
       employeeName: '',
       employeeId: '',
-      department: '',
+      department: 'Department1',
       dob: '',
       gender: '',
       designation: '',
       salary: '',
     })
-    try {
-      // // Send post request to server
-      // let res= await axios.post('http://localhost:8000/target/', formData);
-      // // Redirect to dashboard on success
-      // console.log(res)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-  const removeEmp = e=>{
-    modTable(prev=> prev.filter(i=> i.employeeId != e))
   }
+    
+  };
+  
   const sendDataToBackend = async () => {
     try {
       const response = await axios.post('http://localhost:8000/target/', table);
       modTable([])
+      alert("Successfully registered in database")
       console.log(response.data);
     } catch (error) {
       console.error('Error sending data to backend:', error);
@@ -98,7 +98,8 @@ const FormComponent = () => {
     </form>
     <br />
     <div className="table">
-      <table>
+      <TableWithPagination data={table} itemsPerPage={5} modTable={modTable}/>
+      {/* <table>
         <tr>
           <th>Employee id</th>
           <th>Employee name</th>
@@ -121,8 +122,8 @@ const FormComponent = () => {
         <td><button onClick={()=>removeEmp(employeeId)}>Remove</button></td>
       </tr>)
     })}
-      </table>
-          </div>
+      </table>*/}
+          </div> 
           <br />
           <button onClick={sendDataToBackend}>Submit</button>
     
