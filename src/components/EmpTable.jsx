@@ -29,6 +29,7 @@ const TableWithPagination = ({ data, itemsPerPage, modTable, remove }) => {
             <th>DOB</th>
             <th>Gender</th>
             <th>Designation</th>
+            <th>Date of join</th>
             <th>Salary</th>
             <th>Action</th>
             {/* Add more table headers as needed */}
@@ -44,6 +45,7 @@ const TableWithPagination = ({ data, itemsPerPage, modTable, remove }) => {
               <td>{item.dob}</td>
               <td>{item.gender}</td>
               <td>{item.designation}</td>
+              <td>{item.joinDate}</td>
               <td>{item.salary}</td>
               <td><button onClick={()=>{
                 removeEmp(item.employeeId)

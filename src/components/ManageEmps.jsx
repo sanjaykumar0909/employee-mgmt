@@ -10,11 +10,12 @@ export default function(){
     const [formData, modFormData] = useState({
         employeeName: '',
         department: '',
-        fromDate: '',
-        toDate: '',
+        dob:'',
         gender: '',
         designation: '',
-        salary: ''
+        salary: '',
+        fromJoin:'',
+        toJoin:''
     })
     useEffect(()=>{
         const getEmps = async ()=>{
@@ -33,9 +34,13 @@ export default function(){
     };
     
     const alterEmps = async ()=>{
-        const response = await axios.post("http://localhost:8000/alter-emps/", {rmList: removed})
-        setDbData(response.data) 
-        alert("Employees successfully removed from DB")
+        if (removed.length==0) alert("Nothing is set to remove")
+        else{
+          const response = await axios.post("http://localhost:8000/alter-emps/", {rmList: removed})
+          setDbData(response.data) 
+          alert("Employees successfully removed from DB")
+        }
+        
     }
     // useEffect(()=>{console.log(dbData)}, [dbData])
 return<>
@@ -54,12 +59,16 @@ return<>
         </select>
       </div>
       <div className="form-group">
-        <label htmlFor="fromDate">From Birth Date:</label>
-        <input type="date" id="fromDate" name="fromDate" value={formData.fromDate} onChange={handleChange} />
+        <label htmlFor="dob">Date of birth</label>
+        <input type="text" id="dob" name="dob" value={formData.dob} onChange={handleChange}/>
       </div>
       <div className="form-group">
-        <label htmlFor="toDate">To Birth Date:</label>
-        <input type="date" id="toDate" name="toDate" value={formData.toDate} onChange={handleChange} />
+        <label htmlFor="fromDate">From Join Date:</label>
+        <input type="date" id="fromDate" name="fromJoin" value={formData.fromJoin} onChange={handleChange} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="toDate">To Join Date:</label>
+        <input type="date" id="toDate" name="toJoin" value={formData.toJoin} onChange={handleChange} />
       </div>
       <div className="form-group">
         <label>Gender:</label>
