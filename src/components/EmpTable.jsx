@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Table.scss'; // Import your CSS file
+import '../styles/Table.scss'; // Import your CSS file
 
-const TableWithPagination = ({ data, itemsPerPage, modTable }) => {
+const TableWithPagination = ({ data, itemsPerPage, modTable, remove }) => {
   const [currentPage, setCurrentPage] = useState(1);
   
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -15,7 +15,7 @@ const TableWithPagination = ({ data, itemsPerPage, modTable }) => {
     setCurrentPage(page);
   };
   const removeEmp = e=>{
-    modTable(prev=> prev.filter(i=> i.employeeId != e))
+    modTable(prev=> prev.filter(i=> i.employeeId !== e))
   }
 
   return (
@@ -45,7 +45,10 @@ const TableWithPagination = ({ data, itemsPerPage, modTable }) => {
               <td>{item.gender}</td>
               <td>{item.designation}</td>
               <td>{item.salary}</td>
-              <td><button onClick={()=>removeEmp(item.employeeId)}>Remove</button></td>
+              <td><button onClick={()=>{
+                removeEmp(item.employeeId)
+                remove(p=>[...p, item.employeeId])
+                }}>Remove</button></td>
               {/* Render more columns as needed */}
             </tr>
           ))}
@@ -53,7 +56,7 @@ const TableWithPagination = ({ data, itemsPerPage, modTable }) => {
       </table>
 
       {/* Pagination controls */}
-      <div className="pagination"> {/* Apply a class for pagination */}
+      <div className="pagination"> {/* Apply a class for pagination */} 
         <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
         <span>Page {currentPage} of {totalPages}</span>
         <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
