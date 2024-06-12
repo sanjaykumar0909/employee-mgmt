@@ -56,7 +56,7 @@ const FormComponent = () => {
   
   const sendDataToBackend = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/register-emps/', table);
+      const response = await axios.post('https://employee-mgmt-bkend-1.onrender.com/register-emps/', table);
       modTable([])
       alert("Successfully registered in database")
       console.log(response.data);

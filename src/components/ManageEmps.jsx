@@ -19,7 +19,7 @@ export default function(){
     })
     useEffect(()=>{
         const getEmps = async ()=>{
-            const response= await axios.get("http://localhost:8000/get-emps")
+            const response= await axios.get("https://employee-mgmt-bkend-1.onrender.com/get-emps")
             setDbData(response.data)
         }
         getEmps()
@@ -36,7 +36,7 @@ export default function(){
     const alterEmps = async ()=>{
         if (removed.length==0) alert("Nothing is set to remove")
         else{
-          const response = await axios.post("http://localhost:8000/alter-emps/", {rmList: removed})
+          const response = await axios.post("https://employee-mgmt-bkend-1.onrender.com/alter-emps/", {rmList: removed})
           setDbData(response.data) 
           alert("Employees successfully removed from DB")
         }
